@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Fleet_TestProject" />
+        <module name="fleetbook-automation" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="fleetbook-automation" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

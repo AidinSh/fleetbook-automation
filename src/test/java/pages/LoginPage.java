@@ -1,10 +1,14 @@
 package pages;
 
+import base.BaseClass;
 import io.appium.java_client.MobileElement;
+import io.testproject.sdk.drivers.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage {
+public class LoginPage extends BaseClass {
+
+    AndroidDriver driver;
 
     @FindBy(xpath = "//android.widget.EditText[1]")
     MobileElement EmailField;
