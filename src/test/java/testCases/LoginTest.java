@@ -1,27 +1,31 @@
 package testCases;
 
 import base.BaseClass;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.testproject.sdk.drivers.android.AndroidDriver;
+import io.testproject.sdk.internal.exceptions.AgentConnectException;
+import io.testproject.sdk.internal.exceptions.InvalidTokenException;
+import io.testproject.sdk.internal.exceptions.ObsoleteVersionException;
+import org.openqa.selenium.By;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 
-public class LoginTest extends BaseClass {
-    LoginPage loginPage = new LoginPage();
-    AndroidDriver driver;
+import java.net.MalformedURLException;
 
-    @BeforeClass
-    public void initilize(){
-        try{
-            driver = getAndroidDriver();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+public class LoginTest extends BaseClass {
+    LoginPage loginPage;
+
+    public LoginTest() throws InvalidTokenException, MalformedURLException, ObsoleteVersionException, AgentConnectException {
+        loginPage = new LoginPage(driver);
     }
+
     @Test
     public void successfulLogin(){
-        loginPage.fillEmail("user5@test.com");
+        loginPage.fillEmail("aidin.shahmoradi@fakir-it.de");
         loginPage.fillPassword("Aa1234567890!");
+        loginPage.tapLoginButton();
     }
 
 }
