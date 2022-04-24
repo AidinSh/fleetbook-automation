@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AuthenticationTests extends BaseClass {
 
+    //Pages
     LoginPage loginPage;
     ChargerPage chargerPage;
     OnboardingPage onboardingPage;
@@ -22,6 +23,7 @@ public class AuthenticationTests extends BaseClass {
     ProfilePage profilePage;
     Utils utils;
 
+    //Credentials
     String Email = "user5@test.com";
     String password = "Bb1234567890!";
 
@@ -33,7 +35,7 @@ public class AuthenticationTests extends BaseClass {
         utils = new Utils();
     }
 
-    @Test
+    @Test(enabled = false)
     public void successfulFirstTimeLoginTest(){
         driver.resetApp();
         loginPage = onboardingPage.skipOnBoardingScreen();
@@ -43,7 +45,7 @@ public class AuthenticationTests extends BaseClass {
         Assert.assertTrue(utils.waitForElement(chargerPage.chargerTab, 10));
     }
 
-    @Test
+    @Test(enabled = true, priority = 1)
     public void successfulLogin(){
         loginPage.fillEmail(Email);
         loginPage.fillPassword(password);
@@ -51,7 +53,7 @@ public class AuthenticationTests extends BaseClass {
         Assert.assertTrue(utils.waitForElement(chargerPage.chargerTab, 10));
     }
 
-    @Test
+    @Test(priority = 2)
     public void logOutTest(){
         navBar.selectProfileTab();
         loginPage = profilePage.logOut();
