@@ -1,38 +1,56 @@
 package pages;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.FindBy;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginPage{
 
-    @FindBy(xpath = "//android.widget.EditText[1]")
+    AppiumDriver<MobileElement> driver;
+
+    public LoginPage(AppiumDriver<MobileElement> driver){
+        this.driver = driver;
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+    }
+
+    @AndroidFindBy(xpath = "//android.widget.EditText[1]")
     MobileElement EmailField;
 
-    @FindBy(xpath = "//android.widget.EditText[2]")
+    @AndroidFindBy(xpath = "//android.widget.EditText[2]")
     MobileElement passwordField;
 
-    @FindBy(xpath = "//android.widget.EditText/android.widget.Button")
+    @AndroidFindBy(xpath = "//android.widget.EditText/android.widget.Button")
     MobileElement showPassIcon;
 
-    @FindBy(xpath = "//android.view.View/android.widget.Button[1]")
+    @AndroidFindBy(xpath = "//android.view.View/android.widget.Button[1]")
     MobileElement loginButton;
 
-    @FindBy(xpath = "//android.widget.Button[2]")
+    @AndroidFindBy(xpath = "//android.widget.Button[2]")
     MobileElement forgetPasswordButton;
 
-    @FindBy(xpath = "//android.widget.EditText/android.view.View")
+    @AndroidFindBy(xpath = "//android.widget.EditText/android.view.View")
     MobileElement EmailFieldErrorMsg;
 
-    @FindBy(xpath = "//android.widget.EditText/android.view.View")
+    @AndroidFindBy(xpath = "//android.widget.EditText/android.view.View")
     MobileElement passwordFieldErrorMsg;
 
     public void fillEmail(String input){
+        EmailField.click();
         EmailField.sendKeys(input);
+        driver.hideKeyboard();
     }
 
     public void fillPassword(String input){
+        passwordField.click();
         passwordField.sendKeys(input);
+        driver.hideKeyboard();
+    }
+
+    public ChargerPage tapLoginButton(){
+        loginButton.click();
+        return new ChargerPage(driver);
     }
 
     public void showPassword(){
@@ -42,6 +60,8 @@ public class LoginPage {
     public void forgotPass(){
         forgetPasswordButton.click();
     }
+
+
 
 
 }
