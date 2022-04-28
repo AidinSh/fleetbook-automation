@@ -1,6 +1,8 @@
 package testCases;
 
 
+import Qase.RequestMaker;
+import Qase.Requests;
 import base.BaseClass;
 import io.testproject.sdk.internal.exceptions.AgentConnectException;
 import io.testproject.sdk.internal.exceptions.InvalidTokenException;
@@ -11,7 +13,6 @@ import pages.*;
 import utils.Utils;
 
 import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
 
 public class AuthenticationTests extends BaseClass {
 
@@ -23,6 +24,9 @@ public class AuthenticationTests extends BaseClass {
     ProfilePage profilePage;
     Utils utils;
 
+    Requests requests;
+    RequestMaker requestMaker =  new RequestMaker();;
+
     //Credentials
     String Email = "user5@test.com";
     String password = "Bb1234567890!";
@@ -33,6 +37,9 @@ public class AuthenticationTests extends BaseClass {
         navBar = new NavBar(driver);
         profilePage = new ProfilePage(driver);
         utils = new Utils();
+
+        requests = new Requests();
+
     }
 
     @Test(enabled = false)
@@ -47,10 +54,20 @@ public class AuthenticationTests extends BaseClass {
 
     @Test(enabled = true, priority = 1)
     public void successfulLogin(){
+        String caseId = "1";
+
         loginPage.fillEmail(Email);
         loginPage.fillPassword(password);
         this.chargerPage = loginPage.tapLoginButton();
-        Assert.assertTrue(utils.waitForElement(chargerPage.chargerTab, 10));
+
+        boolean isPassed = utils.waitForElement(chargerPage.chargerTab, 10);
+        if (isPassed){
+            requestMaker.setRunResult(caseId, "passed", "");
+            Assert.assertTrue(isPassed);
+        }else {
+            requestMaker.setRunResult(caseId, "failed", "Login Just Failed!!!");
+            Assert.assertTrue(isPassed);
+        }
     }
 
     @Test(priority = 2)
